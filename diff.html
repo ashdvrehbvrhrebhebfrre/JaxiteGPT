@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -16,71 +17,79 @@
       height: 100vh;
     }
 
-    .chat-container {
-      width: 100%;
-      max-width: 700px;
-      height: 90vh;
-      background-color: #40414f;
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
+```
+.chat-container {
+  width: 100%;
+  max-width: 700px;
+  height: 90vh;
+  background-color: #40414f;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
 
-    .header {
-      padding: 15px;
-      text-align: center;
-      background-color: #202123;
-      font-size: 20px;
-      font-weight: bold;
-    }
+.header {
+  padding: 15px;
+  text-align: center;
+  background-color: #202123;
+  font-size: 20px;
+  font-weight: bold;
+}
 
-    .messages {
-      flex: 1;
-      padding: 20px;
-      overflow-y: auto;
-    }
+.messages {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
 
-    .message {
-      margin-bottom: 15px;
-      padding: 12px 15px;
-      border-radius: 8px;
-      max-width: 70%;
-    }
+.message {
+  margin-bottom: 15px;
+  padding: 12px 15px;
+  border-radius: 8px;
+  max-width: 70%;
+}
 
-    .user {
-      background-color: #0b93f6;
-      align-self: flex-end;
-    }
+.user {
+  background-color: #0b93f6;
+  align-self: flex-end;
+}
 
-    .bot {
-      background-color: #444654;
-      align-self: flex-start;
-    }
+.bot {
+  background-color: #444654;
+  align-self: flex-start;
+}
 
-    .input-area {
-      display: flex;
-      padding: 15px;
-      background-color: #202123;
-    }
+.input-area {
+  display: flex;
+  padding: 15px;
+  background-color: #202123;
+}
 
-    input {
-      flex: 1;
-      padding: 10px;
-      border-radius: 5px;
-      border: none;
-      outline: none;
-      font-size: 16px;
-    }
+input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
 
-    button {
-      margin-left: 10px;
-      padding: 10px 15px;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+button {
+  margin-left: 10px;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.typing {
+  font-style: italic;
+  opacity: 0.8;
+}
+```
+
   </style>
 </head>
 <body>
@@ -101,21 +110,27 @@
 
       if (text === '') return;
 
-      // User message
       const userMsg = document.createElement('div');
       userMsg.className = 'message user';
       userMsg.textContent = text;
       messages.appendChild(userMsg);
 
-      // Bot response (always "hi")
       const botMsg = document.createElement('div');
-      botMsg.className = 'message bot';
-      botMsg.textContent = 'hi';
+      botMsg.className = 'message bot typing';
+      botMsg.textContent = 'Typing...';
       messages.appendChild(botMsg);
+
+      setTimeout(() => {
+        botMsg.classList.remove('typing');
+        typeText(botMsg, generateAIResponse(text));
+      }, 800);
 
       input.value = '';
       messages.scrollTop = messages.scrollHeight;
     }
+
+    function generateAIResponse(userText) {
   </script>
+
 </body>
 </html>
